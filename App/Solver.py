@@ -130,7 +130,7 @@ class Solve():
             for j in range(5):
                 nodoss[i][j] = nodos[i][j+1]
             if nodoss[i][2] == 0 and nodoss[i][1] < 0:
-                nodoss[i][3] = 1+math.tanh(10)*(2+nodoss[i][1]+1)
+                nodoss[i][3] = 1+math.tanh(10)*(2*nodoss[i][1]+1)
             if nodoss[i][2] == 0 and nodoss[i][1] > 0:
                 nodoss[i][3] = np.nan
         return nodoss
