@@ -5,9 +5,10 @@ import math
 import numpy as np
 from IPython.display import display, Markdown
 from ipywidgets import *
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 class Solve():
-    def __init__(self, Tp, Tipo, Peclet, data, Dx, Dy, it, dom, subs):
+    def __init__(self, Tp, Tipo, Peclet, data, Dx, Dy, it, dom, subs, fig = (True,)):
         Tp = (Tp,)
         #---Base de datos---
         nodos = None
@@ -109,9 +110,16 @@ class Solve():
                 T[i][j] = nodoss[id-1][3]
         #print(T)
         display(Markdown("__Resultados:__"))
-        plt.figure(figsize=(12,8))
-        plt.imshow(T, cmap=plt.cm.get_cmap('jet'), interpolation='spline16')
-        plt.colorbar()
+        if fig[0]:
+            plt.figure(figsize=(12,8))
+            plt.imshow(T, cmap=plt.cm.get_cmap('jet'), interpolation='spline16')
+            plt.colorbar()
+        else:
+            #divider = make_axes_locatable(fig[1])
+            #cax = divider.append_axes('right', size='5%', pad=0.05)
+            fig[1].imshow(T, cmap=plt.cm.get_cmap('jet'), interpolation='spline16')
+            #fig[2].colorbar(fig[1], cax=cax, orientation='vertical')
+            plt.show()
     
     def Condicion(self, id, nodoss,dom):
         return nodoss[id-1][1] == 0 or nodoss[id-1][1] == dom[0]/2
